@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { DefaultComponent } from './layouts/default/default.component';
-import { DashboardComponent } from './modules/dashboard/dashboard.component';
 import { ExecutiveDashboardComponent } from './modules/executive-dashboard/executive-dashboard.component';
 import { ManagerDashboardComponent } from './modules/manager-dashboard/manager-dashboard.component';
 import { OperatorDashboardComponent } from './modules/operator-dashboard/operator-dashboard.component';
@@ -10,7 +9,7 @@ const routes: Routes = [{
   component: DefaultComponent,
   children: [{
     path: '',
-    component: DashboardComponent
+    component: OperatorDashboardComponent
   },
   {
     path: 'executive',
