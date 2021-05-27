@@ -1,57 +1,605 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { DashboardService } from '../dashboard.service';
-import { MatTableDataSource, MatPaginator } from '@angular/material';
+import { Component, OnInit } from '@angular/core';
 
-export interface PeriodicElement {
-  name: string;
-  position: number;
-  weight: number;
-  symbol: string;
-}
-const ELEMENT_DATA: PeriodicElement[] = [
-  { position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H' },
-  { position: 2, name: 'Helium', weight: 4.0026, symbol: 'He' },
-  { position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li' },
-  { position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be' },
-  { position: 5, name: 'Boron', weight: 10.811, symbol: 'B' },
-  { position: 6, name: 'Carbon', weight: 12.0107, symbol: 'C' },
-  { position: 7, name: 'Nitrogen', weight: 14.0067, symbol: 'N' },
-  { position: 8, name: 'Oxygen', weight: 15.9994, symbol: 'O' },
-  { position: 9, name: 'Fluorine', weight: 18.9984, symbol: 'F' },
-  { position: 10, name: 'Neon', weight: 20.1797, symbol: 'Ne' },
-  { position: 11, name: 'Sodium', weight: 22.9897, symbol: 'Na' },
-  { position: 12, name: 'Magnesium', weight: 24.305, symbol: 'Mg' },
-  { position: 13, name: 'Aluminum', weight: 26.9815, symbol: 'Al' },
-  { position: 14, name: 'Silicon', weight: 28.0855, symbol: 'Si' },
-  { position: 15, name: 'Phosphorus', weight: 30.9738, symbol: 'P' },
-  { position: 16, name: 'Sulfur', weight: 32.065, symbol: 'S' },
-  { position: 17, name: 'Chlorine', weight: 35.453, symbol: 'Cl' },
-  { position: 18, name: 'Argon', weight: 39.948, symbol: 'Ar' },
-  { position: 19, name: 'Potassium', weight: 39.0983, symbol: 'K' },
-  { position: 20, name: 'Calcium', weight: 40.078, symbol: 'Ca' },
-];
 @Component({
   selector: 'app-operator-dashboard',
   templateUrl: './operator-dashboard.component.html',
   styleUrls: ['./operator-dashboard.component.scss']
 })
 export class OperatorDashboardComponent implements OnInit {
-  bigChart = [];
-  cards = [];
-  pieChart = [];
+  tempCurrentWave =  [
+    7.92
+    ,6.35
+    ,8.14
+    ,8.6
+    ,7.25
+    ,8.43
+    ,17.73
+    ,12.75
+    ,11.9
+    ,11.06
+    ,14.8
+    ,14.93
+    ,19.44
+    ,15.87
+    ,15.79
+    ,13.23
+    ,14.96
+,17.76
+,16.41
+,16.2
+,15.49
+,16.7
+,16.67
+,16.7
+,10.18
+,15.61
+,13.13
+,9.39
+,11.43
+,11.97
+,0.42
+,15.46
+,9.17
+,3.54
+,7.49
+,17.15
+,20.6
+,16.34
+,17.64
+,16.78
+,16.45
+,16.85
+,20.69
+,17.37
+,17.6
+,16.56
+,17.21
+,17.54
+,18.64
+,6.99
+,17.86
+,18.14
+,17.41
+,17.37
+,18.52
+,1.87
+,16.49
+,15.91
+,14.13
+,14.59
+,13.21
+,0.91
+,10.72
+,8.01
+,8.82
+,17.29
+,17.57
+,8.51
+,8.21
+,0.27
+,0.28
+,0.24
+,0.27
+,0.24
+,0.28
+,0.24
+,0.26
+,0.24
+,0.27
+,0.25
+,1.7
+,5.76
+,5.86
+,0.27
+,5.92
+,5.98
+,6.03
+,6.09
+,2.4
+,2.38
+,9.53
+,12.53
+,13.92
+,14.23
+,15.11
+,6.08
+,5.53
+,5.65
+,5.7
+,6
+,8.18
+,0.29
+,0.28
+,5.57
+,0.19
+,5.41
+,5.55
+,4.86
+,5.56
+,5.22
+,5.25
+,0.27
+,2.18
+,15.74
+,6.14
+,6.3
+,6.43
+,0.25
+,6.61
+,0.27
+,0.25
+,0.26
+,0.25
+,0.25
+,0.31
+,0.28
+,0.29
+,0.26
+,0.3
+,0.25
+,0.27
+,0.27
+,0.24
+,6.72
+,6.24
+,16.89
+,16.93
+,5.94
+,7.08
+,4.39
+,7.82
+,5.58
+,5.86
+,7.88
+,6.03
+,6.47
+,8.33
+,6.01
+,7.02
+,6.07
+,7.06
+,0.2
+,5.81
+,6.81
+,5.27
+,7.12
+,6.38
+,5.31
+,7.93
+,4.09
+,6.61
+,6.26
+,4.1
+,6.91
+,6.33
+,5.29
+,7.91
+,7.09
+,5.46
+,0.2
+,0.2
+,0.26
+,0.26
+,0.25
+,0.25
+,0.27
+,0.26
+,0.25
+,0.28
+,0.27
+,0.3
+,0.28
+,0.28
+,0.28
+,0.28
+,0.2
+,0.28
+,0.3
+,0.29
+,0.27
+,0.27
+,0.26
+,0.28
+,0.28
+,0.28
+,0.28
+,0.27
+,0.26
+,0.28
+,0.28
+,0.28
+,0.29
+,17.17
+,6.58
+,5.63
+,16.06
+,17.34
+,16.66
+,15.64
+,17.41
+,2.21
+,17.11
+,17.21
+,16.37
+,16.99
+,16.84
+,2.28
+,16.43
+,16.75
+,4.46
+,17.43
+,16.71
+,3.25
+,16.93
+,17.19
+,17.37
+,17.12
+,16.53
+,7.76
+,16.73
+,17.23
+,16.95
+,17.96
+,16.6
+,11.79
+,16.37
+,6.26
+,16.98
+,16.62
+,7.69
+,35.02
+,12.87
+,9.21
+,9.08
+,5.95
+,8.01
+,10.22
+,16.87
+,13.21
+,11.55
+,12
+,14.26
+,14.2
+,16.19
+,18.2
+,16.39
+,16.32
+,17.16
+,16.45
+,17.75
+,16.7
+,15.71
+,16.61
+,16.67
+,17.57
+,17.31
+,12.16
+,17.36
+,15.91
+,16.12
+,0.28
+,15.43
+,0.27
+,17.81
+,18.58
+,17.82
+,18.08
+,18.96
+,4.1
+,18.24
+,17.19
+,17.29
+,18.16
+,18.12
+,2.9
+,17.36
+,17.96
+,9.22
+,17.19
+,17.42
+,1.47
+,16.95
+,18.04
+,17.2
+,16.77
+,16.33
+,12.45
+,3.87
+,17.2
+,16.33
+,14.75
+,13.28
+,14.11
+,16.7
+,8.46
+,17.76
+,17.32
+,17.61
+,17.99
+,8.68
+,17.46
+,17.5
+,17.34
+,17.77
+,17.91
+,14
+,17.96
+,17.51
+,17.31
+,18.1
+,18.6
+,17.61
+,21.72
+,17.01
+,18.25
+,17.66
+,17.42
+,20.14
+,17.91
+,17.52
+,17.35
+,18.02
+,17.82
+,18.33
+,18.45
+,17.59
+,17.14
+,19.14
+,11.31
+,8.43
+,10.22
+,6.19
+,14.57
+,8.72
+,11.9
+,11.39
+,9.92
+,0.2
+,8.42
+,7.28
+,6.2
+,8
+,6.82
+,2.35
+,0.28
+,15.69
+,0.27
+,15.75
+,0.26
+,0.24
+,0.27
+,0.25
+,0.26
+,0.27
+,0.24
+,0.23
+,0.24
+,0.24
+,0.25
+,0.26
+,16.15
+,0.31
+,14.97
+,16.51
+,17.49
+,9.2
+,8.27
+,11.98
+,0.28
+,0.29
+,7
+,7.81
+,8.2
+,7.51
+,10.06
+,18.75
+,9.63
+,13.31
+,14.91
+,15.31
+,0.27
+,22.21
+,18.87
+,16.75
+,19.76
+,19.52
+,18.04
+,18.95
+,17.58
+,19.12
+,20.21
+,17.95
+,18.42
+,18.18
+,17.86
+,19.79
+,18.12
+,17.18
+,16.84
+,4.01
+,6.27
+,6.38
+,5.85
+,0.31
+,16.35
+,0.31
+,0.28
+,0.28
+,0.28
+,0.26
+,0.28
+,0.29
+,0.29
+,0.28
+,6.11
+,0.27
+,0.27
+,0.27
+,0.26
+,0.29
+,0.28
+,0.28
+,0.29
+,0.29
+,0.33
+,0.29
+,0.29
+,0.3
+,0.29
+,0.28
+,0.26
+,0.27
+,6.01
+,5.73
+,16.99
+,0.25
+,0.26
+,0.29
+,0.3
+,0.27
+,0.28
+,0.29
+,0.26
+,0.27
+,0.29
+,0.27
+,0.25
+,0.28
+,5.93
+,0.26
+,0.27
+,0.26
+,0.27
+,0.28
+,0.29
+,0.31
+,0.29
+,0.29
+,0.27
+,0.23
+,0.24
+,0.24
+,0.26
+,0.28
+,0.26
+,0.25
+,0.28
+,0.24
+,7.3
+,5.78
+,3.57
+,6.57
+,5.16
+,14.62
+,20.74
+,1.09
+,10.63
+,7.26
+,7.9
+,10.72
+,0.25
+,0.86
+,12.02
+,11.66
+,15.46
+,17.39
+,16.89
+,16.95
+,17.37
+,16.9
+,1.48
+,4.08
+,17.79
+,17.53
+,17.2
+,17.06
+,2.25
+,16.12
+,15.09
+,17.18
+,8.12
+,11.7
+,6.6
+,0.2
+,6.17
+,0.2
+,0.2
+,5.38
+,8.12
+,7.03
+,5.37
+,8.33
+,4.89
+,7.06
+,6.41
+,5.8
+,6.72
+,5.99
+,0.2
+,6.08
+,6.88
+,8.35
+,6.47
+,9.18
+,6.41
+,5.92
+,7.53
+,6.33
+,5.27
+,8.25
+,6.89
+,7.56
+,7.61
 
-  displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
-  dataSource = new MatTableDataSource<PeriodicElement>(ELEMENT_DATA);
+  ];
 
-  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
-  constructor(private dashboardService: DashboardService) { }
+  tempI = 0;
+  bigChart = []
+
+  ELEMENT_DATA = [
+    { C1: "Machine Name", C2: ""},
+    { C1: "Machine status", C2: ""   },
+    { C1: "Time of Running", C2: "" },
+    { C1: "Fault Occur", C2: "" }
+  ];
+  
+  machineName: string;
+  displayedColumns: string[] = ['C1', 'C2'];
+  dataSource = this.ELEMENT_DATA;
+  Path = 'assets/Red.svg';
+  avaiableMachines = [
+    "Machine - 1",
+    "Machine - 2",
+    "Machine - 3"
+  ]
 
   ngOnInit() {
-    this.bigChart = this.dashboardService.bigChart();
-    this.cards = this.dashboardService.cards();
-    this.pieChart = this.dashboardService.pieChart();
-
-    this.dataSource.paginator = this.paginator;
+    this.machineName = "Machine - 1"
+    this.updateData();
+    setInterval(() => {
+      this.updateData(); 
+    }, 1000);
   }
-
+  
+  updateData() {
+    this.ELEMENT_DATA[0].C2 = this.machineName;
+    this.ELEMENT_DATA[2].C2 = this.tempI + 's';
+    
+    if (this.tempI < this.tempCurrentWave.length){
+      this.Path = 'assets/Green.svg';
+      this.bigChart = this.tempCurrentWave.slice(0, this.tempI);
+      this.tempI = this.tempI + 1;
+      this.ELEMENT_DATA[1].C2 = "Running";
+      this.ELEMENT_DATA[3].C2 = "False";
+    }
+    else{
+      this.ELEMENT_DATA[1].C2 = "Not Running";
+      this.Path = 'assets/Red.svg';
+      this.ELEMENT_DATA[3].C2 = "False";
+    }
+  }
+  
+  ngOnDestroy() {
+    
+    }
 }
