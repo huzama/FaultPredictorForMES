@@ -43,7 +43,7 @@ export class AreaComponent implements OnChanges {
             enabled: false
           },
           exporting: {
-            enabled: true,
+            enabled: false,
           },
           series: this.bigChart
         };

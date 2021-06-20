@@ -8,7 +8,6 @@ import { RouterModule } from '@angular/router';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { MatSidenavModule, MatDividerModule, MatCardModule, MatPaginatorModule, MatTableModule} from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { DashboardService } from 'src/app/modules/dashboard.service';
 import { MatMenuModule } from '@angular/material/menu';
 
 
@@ -31,7 +30,6 @@ import { MatMenuModule } from '@angular/material/menu';
     MatMenuModule
   ],
   providers: [
-    DashboardService
   ]
 })
 export class DefaultModule { }

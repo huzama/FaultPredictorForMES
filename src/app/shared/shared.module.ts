@@ -5,6 +5,9 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { RouterModule } from '@angular/router';
 import {HttpClientModule} from '@angular/common/http';
 import {FormsModule} from '@angular/forms';
+import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
+
+
 
 import { HeaderComponent } from './components/header/header.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
@@ -14,6 +17,9 @@ import { CardComponent } from './widgets/card/card.component';
 import { PieComponent } from './widgets/pie/pie.component';
 import { MenuComponent } from './components/menu/menu.component';
 import {MatSelectModule} from '@angular/material/select';
+
+const config: SocketIoConfig = { url: 'http://localhost:5000' };
+
 
 @NgModule({
   declarations: [
@@ -34,7 +40,8 @@ import {MatSelectModule} from '@angular/material/select';
     MatMenuModule,
     MatListModule,
     RouterModule,
-    HighchartsChartModule
+    HighchartsChartModule,
+    SocketIoModule.forRoot(config)
   ],
   exports: [
     HeaderComponent,
@@ -46,7 +53,10 @@ import {MatSelectModule} from '@angular/material/select';
     MatSelectModule,
     MatIconModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    SocketIoModule
   ]
 })
-export class SharedModule { }
+export class SharedModule {
+
+ }

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Socket } from 'ngx-socket-io';
 
 @Component({
   selector: 'app-operator-dashboard',
@@ -582,6 +583,8 @@ export class OperatorDashboardComponent implements OnInit {
   }
   
   updateData() {
+    //console.log(this.socket.emit('getData', 'FromWebSite'));
+
     this.ELEMENT_DATA[0].C2 = this.machineName;
     this.ELEMENT_DATA[2].C2 = this.tempI + 's';
     
@@ -598,7 +601,8 @@ export class OperatorDashboardComponent implements OnInit {
       this.ELEMENT_DATA[3].C2 = "False";
     }
   }
-  
+  constructor(private socket: Socket)
+  {}
   ngOnDestroy() {
     
     }
