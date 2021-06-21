@@ -1,0 +1,62 @@
+<div>
+<div style="float:right">
+  <mat-form-field appearance="fill">
+    <mat-label>Select Machine</mat-label>
+    <mat-select [(ngModel)]="machineName" name="machine">
+      <mat-option *ngFor="let machine of avaiableMachines" [value]="machine">
+        {{machine}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+</div> 
+
+<div style="float:right">
+  <mat-form-field appearance="fill">
+    <mat-label>Select MachineBatch</mat-label>
+    <mat-select [(ngModel)]="machineBatch" name="machineBatch">
+      <mat-option *ngFor="let machineBatch of avaiableMachines" [value]="machineBatch">
+        {{machineBatch}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+</div> 
+  
+<div style="float:right">
+  <mat-form-field appearance="fill">
+    <mat-label>Select Floor</mat-label>
+    <mat-select [(ngModel)]="floorName" name="floor">
+      <mat-option *ngFor="let floor of avaiableMachines" [value]="floor">
+        {{floor}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+</div> 
+
+  <div style="float:left"> 
+    Status: 
+    <img src={{Path}} style="vertical-align:middle">
+  </div>
+</div>
+
+
+  <div>
+    <app-widget-area [data]="bigChart" [varName]="machineName"></app-widget-area>
+  </div>
+
+  
+<div class="mat-elevation-z8">
+    <table mat-table [dataSource]="dataSource">
+        <ng-container matColumnDef="C1">
+            <td mat-cell *matCellDef="let element"> {{element.C1}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="C2">
+            <td mat-cell *matCellDef="let element"> {{element.C2}} </td>
+        </ng-container>
+
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+</div>
+
+<br>
+<br>
