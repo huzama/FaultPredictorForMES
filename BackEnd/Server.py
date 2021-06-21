@@ -1,6 +1,6 @@
 from flask import Flask, request, jsonify
-from flask_restful import Api
 from flask_cors import CORS, cross_origin
+from MachineLearning import main
 
 # Configration
 app = Flask(__name__)
@@ -10,11 +10,12 @@ cors = CORS(app, resources={r"/": {"origins": "http://localhost:5000"}})
 
 # CallBack
 @app.route('/', methods=['POST', 'GET'])
-@cross_origin(origin='localhost',headers=['Content- Type','Authorization'])
+@cross_origin(origin='localhost', headers=['Content- Type', 'Authorization'])
 def callBackFunction():
-    requested_data = request.args.get('machineName')
+    machineName = request.args.get('machineName')
     # Call ML here and return as dictionary
-    return jsonify({'statistics': [1, 2, 3, 4]}), 200
+    pp = main(machineName)
+    return jsonify(pp), 200
 
 if __name__ == "__main__":
-    app.run(port=5000, debug=True)
+    app.run(port=5000)
