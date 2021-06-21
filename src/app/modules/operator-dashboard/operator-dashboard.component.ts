@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Socket } from 'ngx-socket-io';
+import { HttpClient } from '@angular/common/http';
+import {HttpParams} from "@angular/common/http";
 
 @Component({
   selector: 'app-operator-dashboard',
@@ -563,7 +564,6 @@ export class OperatorDashboardComponent implements OnInit {
     { C1: "Time of Running", C2: "" },
     { C1: "Fault Occur", C2: "" }
   ];
-  
   machineName: string;
   displayedColumns: string[] = ['C1', 'C2'];
   dataSource = this.ELEMENT_DATA;
@@ -573,18 +573,25 @@ export class OperatorDashboardComponent implements OnInit {
     "Machine - 2",
     "Machine - 3"
   ]
+  id;
 
   ngOnInit() {
     this.machineName = "Machine - 1"
     this.updateData();
-    setInterval(() => {
+
+    this.id = setInterval(() => {
       this.updateData(); 
     }, 1000);
   }
-  
+  // Data recived From server 
+  recivedData;
   updateData() {
-    //console.log(this.socket.emit('getData', 'FromWebSite'));
+    // Parameters Sent to server
+    let params = new HttpParams().set("machineName", this.machineName)
+    this.http.get<any>('http://localhost:5000', { params: params }).subscribe(data => {
+    this.recivedData = data});
 
+    // Change Hard Coded values to data coming from server
     this.ELEMENT_DATA[0].C2 = this.machineName;
     this.ELEMENT_DATA[2].C2 = this.tempI + 's';
     
@@ -601,9 +608,11 @@ export class OperatorDashboardComponent implements OnInit {
       this.ELEMENT_DATA[3].C2 = "False";
     }
   }
-  constructor(private socket: Socket)
-  {}
   ngOnDestroy() {
-    
+    if (this.id) {
+      clearInterval(this.id);
+    }
+    }
+    constructor(private http:HttpClient) {
     }
 }

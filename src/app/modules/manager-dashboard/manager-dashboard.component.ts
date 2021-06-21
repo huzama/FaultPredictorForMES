@@ -30,11 +30,11 @@ export class ManagerDashboardComponent implements OnInit {
     this.machineBatch = "Not Selected"
     this.machineName = "Not Selected"
     this.updateData();
-    setInterval(() => {
+    this.id = setInterval(() => {
       this.updateData(); 
     }, 1000);
   }
-  
+  id;
   updateData() {
     this.ELEMENT_DATA[0].C2 = this.machineBatch;
     this.ELEMENT_DATA[1].C2 = this.machineName;
@@ -45,6 +45,8 @@ export class ManagerDashboardComponent implements OnInit {
   }
   
   ngOnDestroy() {
-    
+    if (this.id) {
+      clearInterval(this.id);
+    }
     }
 }
