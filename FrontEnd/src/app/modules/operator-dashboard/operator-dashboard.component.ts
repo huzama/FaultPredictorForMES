@@ -69,7 +69,7 @@ export class OperatorDashboardComponent implements OnInit {
       this.Path = 'assets/Red.svg';
       
       this.recivedData.Label
-      this.recivedData.Status
+      //this.recivedData.Status
       this.recivedData.UniqueID
 
 

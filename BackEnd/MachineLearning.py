@@ -75,6 +75,12 @@ def main(machineName):
     testFatures = waveletImplementation(processDataFrame, testID, 3, 'db1')
     predictedLabel = classifier(testFatures)
 
-    processDict = {'MachineNo': machineName, "Date": processDataFrame.iloc[0]['Date'], 'Status': processDataFrame.Status.astype(int).tolist(), 'Current': processDataFrame.Current.astype(int).tolist(), 'UniqueID': int(processDataFrame.iloc[0]['Process']), 'Label': processDataFrame.iloc[0]['ProcessNameDTW'], 'PredictedLabel': str(predictedLabel[0])}
+    processDict = {'MachineNo': machineName, 
+                    "Date": processDataFrame.iloc[0]['Date'], 
+                    #'Status': processDataFrame.Status.astype(int).tolist(), 
+                    'Current': processDataFrame.Current.astype(int).tolist(), 
+                    'UniqueID': int(processDataFrame.iloc[0]['Process']), 
+                    'Label': processDataFrame.iloc[0]['ProcessNameDTW'], 
+                    'PredictedLabel': str(predictedLabel[0])}
     
     return processDict
