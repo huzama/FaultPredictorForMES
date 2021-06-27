@@ -2,11 +2,25 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { DefaultComponent } from './layouts/default/default.component';
 import { ExecutiveDashboardComponent } from './modules/executive-dashboard/executive-dashboard.component';
+import { LoginComponent } from './login/login.component';
 import { ManagerDashboardComponent } from './modules/manager-dashboard/manager-dashboard.component';
 import { OperatorDashboardComponent } from './modules/operator-dashboard/operator-dashboard.component';
-const routes: Routes = [{
-  path: '',
+const routes: Routes = [
+
+  {
+    path: '',
+    component: LoginComponent
+  },
+
+  {
+    path: 'login',
+    component: LoginComponent
+  },
+  
+  {
+  path: 'users',
   component: DefaultComponent,
+  
   children: [{
     path: '',
     component: OperatorDashboardComponent
